@@ -193,7 +193,7 @@ function convert(bool) {
                 const element = list[index];
                 let far = element.innerHTML.match(/\d+/)
                 if (index === 0) element.innerHTML = `<strong>${Math.round((far - 32) / 9 * 5)}</strong>°C`
-                else element.innerHTML = `${Math.round((far - 32) / 9 * 5)}°F`
+                else element.innerHTML = `${Math.round((far - 32) / 9 * 5)}°C`
             }
             break;
 

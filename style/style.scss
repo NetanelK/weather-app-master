@@ -106,6 +106,7 @@ body {
         // margin-top: 1.125em;
 
         transition: background-position .3s ease-out, color .2s ease;
+        cursor: pointer;
 
         &:hover {
             background-position: -100%;
@@ -121,6 +122,7 @@ body {
         // margin: 1em .75em;
 
         transition: background-color .3s ease;
+        cursor: pointer;
 
         &:hover {
             background-color: rgba(110, 112, 122, .4);
@@ -167,6 +169,7 @@ body {
        visibility: hidden;
        transition: visibility ;
        transition-delay: .5s;
+       cursor: pointer;
     }
 
     .search-bar {
@@ -221,6 +224,7 @@ body {
             padding: .875em 1.1875em;
             // margin: 0 .75em;
             border: none;
+            cursor: pointer;
         }
     }
 
@@ -506,6 +510,7 @@ body {
         border-radius: 50%;
         padding: .583333333em .583333333em .527777778em .633333333em;
         background-color: #585676;
+        cursor: pointer;
 
         &.fahrenheit{
             padding: .583333333em .633333333em .527777778em .688888889em;
