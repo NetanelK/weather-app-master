@@ -1,10 +1,10 @@
-var requestOptions = {
+let requestOptions = {
     method: "GET",
     redirect: "follow",
 };
 
 function getLocalWeather() {
-    var latlong = navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.getCurrentPosition(
         (pos) => {
             fetch(
                 `https://www.metaweather.com/api/location/search/?lattlong=${pos.coords.latitude},${pos.coords.longitude}`
@@ -49,16 +49,29 @@ function getLocalWeather() {
     );
 }
 
+const getNavigatorLanguage = () => {
+    if (navigator.languages && navigator.languages.length) {
+        return navigator.languages[0];
+    } else {
+        return (
+            navigator.userLanguage ||
+            navigator.language ||
+            navigator.browserLanguage ||
+            "en"
+        );
+    }
+};
+
 function getWeather(woeid) {
-    var search = document.querySelector("#ch");
-    var loader = document.querySelector(".mask");
+    let search = document.querySelector("#ch");
+    let loader = document.querySelector(".mask");
     document.querySelector(".search-results").innerHTML = "";
     loader.style.display = "block";
 
     fetch(`https://www.metaweather.com/api/location/${woeid}`, requestOptions)
         .then((response) => response.text())
         .then((result) => {
-            var loader = document.querySelector(".mask");
+            loader = document.querySelector(".mask");
             loader.style.display = "none";
             search.checked = false;
             let today = document.querySelector(".today");
@@ -67,22 +80,26 @@ function getWeather(woeid) {
             );
             let cards = document.querySelectorAll(".card");
             let data = JSON.parse(result);
+            let locales = getNavigatorLanguage();
 
             for (let i = 0; i < 6; i++) {
-                var short = data.consolidated_weather[i];
+                let weather = data.consolidated_weather[i];
+                console.log(locales);
                 if (i === 0) {
-                    today.children[0].children[0].src = `.\\assets\\${short.weather_state_name
+                    today.children[0].children[0].src = `.\\assets\\${weather.weather_state_name
                         .split(" ")
                         .join("")}.png`;
                     today.children[1].children[0].innerHTML = Math.round(
-                        short.the_temp
+                        weather.the_temp
                     );
-                    today.children[2].innerHTML = short.weather_state_name;
-                    let date = new Date(short.applicable_date);
-                    date = formatDate(
-                        date.getDay(),
-                        date.getDate(),
-                        date.getMonth()
+                    today.children[2].innerHTML = weather.weather_state_name;
+                    let date = new Date(weather.applicable_date).toLocaleString(
+                        locales,
+                        {
+                            weekday: "short",
+                            day: "numeric",
+                            month: "short",
+                        }
                     );
                     today.children[5].innerHTML = date;
                     today.children[6].innerHTML =
@@ -91,22 +108,23 @@ function getWeather(woeid) {
                 } else {
                     cards[
                         i
-                    ].children[1].src = `.\\assets\\${short.weather_state_name
+                    ].children[1].src = `.\\assets\\${weather.weather_state_name
                         .split(" ")
                         .join("")}.png`;
                     cards[i].children[2].innerHTML = `${Math.round(
-                        short.max_temp
+                        weather.max_temp
                     )}°C`;
                     cards[i].children[3].innerHTML = `${Math.round(
-                        short.min_temp
+                        weather.min_temp
                     )}°C`;
                     if (i != 1) {
-                        let date = new Date(short.applicable_date);
-                        date = formatDate(
-                            date.getDay(),
-                            date.getDate(),
-                            date.getMonth()
-                        );
+                        let date = new Date(
+                            weather.applicable_date
+                        ).toLocaleString(locales, {
+                            weekday: "short",
+                            day: "numeric",
+                            month: "short",
+                        });
                         cards[i].children[0].innerHTML = date;
                     }
                 }
@@ -134,84 +152,14 @@ function getWeather(woeid) {
                 data.consolidated_weather[0].air_pressure
             );
 
-            console.log(data, highlightsCards[1]);
+            // console.log(data, highlightsCards[1]);
         })
         .catch((error) => console.log("error", error));
 }
 
-function formatDate(day, date, month) {
-    let formatDate = "";
-    switch (day) {
-        case 0:
-            formatDate += "Sun, ";
-            break;
-        case 1:
-            formatDate += "Mon, ";
-            break;
-        case 2:
-            formatDate += "Tue, ";
-            break;
-        case 3:
-            formatDate += "Wed, ";
-            break;
-        case 4:
-            formatDate += "Thu , ";
-            break;
-        case 5:
-            formatDate += "Fri, ";
-            break;
-        case 6:
-            formatDate += "Sat , ";
-            break;
-    }
-
-    formatDate += date;
-
-    switch (month) {
-        case 0:
-            formatDate += " Jan";
-            break;
-        case 1:
-            formatDate += " Feb";
-            break;
-        case 2:
-            formatDate += " Mar";
-            break;
-        case 3:
-            formatDate += " Apr";
-            break;
-        case 4:
-            formatDate += " May";
-            break;
-        case 5:
-            formatDate += " June";
-            break;
-        case 6:
-            formatDate += " July";
-            break;
-        case 7:
-            formatDate += " Aug";
-            break;
-        case 8:
-            formatDate += " Sept";
-            break;
-        case 9:
-            formatDate += " Oct";
-            break;
-        case 10:
-            formatDate += " Nov";
-            break;
-        case 11:
-            formatDate += " Dec";
-            break;
-    }
-
-    return formatDate;
-}
-
 function search() {
-    var searchText = document.getElementById("text");
-    var searchResults = document.querySelector(".search-results");
+    let searchText = document.getElementById("text");
+    let searchResults = document.querySelector(".search-results");
 
     searchResults.innerHTML = "";
     fetch(
@@ -223,13 +171,13 @@ function search() {
             let i = 0;
 
             locations.forEach((element) => {
-                var li = document.createElement("li");
+                let li = document.createElement("li");
                 li.classList.add("search-item");
                 li.innerHTML = `${element.title}<span class="material-icons">
                                         navigate_next
                                     </span>`;
                 li.addEventListener("click", () => getWeather(element.woeid));
-                console.log(li);
+                // console.log(li);
                 searchResults.append(li);
                 i++;
             });
@@ -239,7 +187,7 @@ function search() {
 }
 
 function convert(bool) {
-    var list = document.querySelectorAll(".celsius");
+    let list = document.querySelectorAll(".celsius");
 
     switch (bool) {
         case 0:

@@ -1,170 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1,
-  maximum-scale=5"
-    />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="language" content="English" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=5"
+        />
+        <meta
+            name="title"
+            content="NetanelK's Weather App, see your forecast"
+        />
+        <meta
+            name="description"
+            content="A weather app, to see your's location, and other locations, forecast for the coming week."
+        />
+        <meta
+            name="keywords"
+            content="Weather, forecast, week, temperature, wind, humidity ,air pressure "
+        />
+        <meta name="robots" content="index, follow" />
 
-    <link rel="icon" href="devchallenges.png" />
+        <link rel="icon" href=".\assets\Showers.png" />
 
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="https://devchallenges.io/"
-    />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href=".\assets\Showers.png"
+        />
 
-    <link rel="stylesheet" href="./style/style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+        <link rel="stylesheet" href="./style/style.css" />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
 
-    <script src="./api.js"></script>
+        <script src="./api.js"></script>
 
-    <title>Weather Forecast</title>
-
-   
-  </head>
-  <body onload="getLocalWeather()">
-    <div class="mask">
-      <div class="loader">
-        <div class="sk-chase">
-          <div class="sk-chase-dot"></div>
-          <div class="sk-chase-dot"></div>
-          <div class="sk-chase-dot"></div>
-          <div class="sk-chase-dot"></div>
-          <div class="sk-chase-dot"></div>
-          <div class="sk-chase-dot"></div>
-        </div>
-      </div>
-    </div>
-<div class="w">
-  
-      <header class="header">
-        <label for="ch" class="search">Search for places</label>
-        <input type="checkbox" name="" id="ch">
-        <i class="material-icons my-location" onclick="getLocalWeather()">my_location</i>
-  
-        <ul class="menu">
-          <label for="ch" class="check"><span class="material-icons close">close</span></label>
-  
-          <div class="search-bar">
-            <div class="search-wrap">
-            
-              <label for="text"> <span class="material-icons">
-                search
-                </span></label>
-              <input type="text" name="text" id="text" placeholder="search location">
+        <title>Weather Forecast</title>
+    </head>
+    <body onload="getLocalWeather()">
+        <div class="mask">
+            <div class="loader">
+                <div class="sk-chase">
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                    <div class="sk-chase-dot"></div>
+                </div>
             </div>
-            <button onclick="search()">Search</button>
-          </div>
-          <div class="search-results">
-          </div>
-          
-        </ul>
-      </header>
-  
-  
-      <div class="today">
-        <div class="img-wrap">
-          <img src="./assets/Clear.png" alt="weather">
         </div>
-        <span class="temperature celsius"><strong>15</strong>°C</span>
-        <span class="weather">Shower</span>
-        <span class="day">Today</span>
-        <span class="dot">•</span>
-        <span class="date">Fri, 5 Jun</span>
-        <sapn class="location"><i class="material-icons">location_on</i> </sapn>
-      </div>
-</div>
+        <div class="w">
+            <header class="header">
+                <label for="ch" class="search">Search for places</label>
+                <input type="checkbox" name="" id="ch" />
+                <i
+                    class="material-icons my-location"
+                    onclick="getLocalWeather()"
+                    >my_location</i
+                >
 
-    <div class="wrapper">
-      <div class="forecast">
-  
-        <div class="temp">
-          <input type="radio" name="temps" id="celsius" onchange="convert(0)" checked>
-          <input type="radio" name="temps" id="fahrenheit" onchange="convert(1)">
-          <label class="radio cel" for="celsius">°C</label>
-          <label class="radio fahrenheit" for="fahrenheit">°F</label>
-        </div>
-  
-        <article class="card"></article>
-        <article class="card tomorrow">
-          <span class="data">Tomorrow</span>
-          <img src="./assets/Shower.png" alt="">
-          <span class="high celsius ">16°C</span>
-          <span class="low celsius ">11°C</span>
-        </article>
-  
-        <article class="card two-days">
-          <span class="data">Tomorrow</span>
-          <img src="" alt="">
-          <span class="high celsius "></span>
-          <span class="low celsius "></span>
-        </article>
-  
-        <article class="card three-days">
-          <span class="data">Tomorrow</span>
-          <img src="" alt="">
-          <span class="high celsius "></span>
-          <span class="low celsius "></span>
-        </article>
-  
-        <article class="card four-days">
-          <span class="data">Tomorrow</span>
-          <img src="" alt="">
-          <span class="high celsius "></span>
-          <span class="low celsius "></span>
-        </article>
-  
-        <article class="card five-days">
-          <span class="data">Tomorrow</span>
-          <img src="" alt="">
-          <span class="high celsius "></span>
-          <span class="low celsius "></span>
-        </article>
-      </div>
-  
-      <div class="today-details">
-        <span>Today's Highlights</span>
-        <!-- <div class="one"> -->
-          <div class="card wind">
-            <span>Wind status</span>
-            <span class="text"><strong></strong>mph</span>
-            <span class="wind-dir"><i class="material-icons">navigation</i></span>
-          </div>
-    
-          <div class="card Humidity">
-            <span>Humidity</span>
-            <span class="text"><strong></strong>%</span>
-            <div class="slider">
-              <div class="nums">
-                <span>0</span>
-                <span>50</span>
-                <span>100</span>
-              </div>
-              <div class="sliders">
-                <span class="slide"></span>
-                <span class="fill"></span>
-              </div>
-              <span>%</span>
+                <ul class="menu">
+                    <label for="ch" class="check"
+                        ><span class="material-icons close">close</span></label
+                    >
+
+                    <div class="search-bar">
+                        <div class="search-wrap">
+                            <label for="text">
+                                <span class="material-icons">
+                                    search
+                                </span></label
+                            >
+                            <input
+                                type="text"
+                                name="text"
+                                id="text"
+                                placeholder="search location"
+                            />
+                        </div>
+                        <button onclick="search()">Search</button>
+                    </div>
+                    <div class="search-results"></div>
+                </ul>
+            </header>
+
+            <div class="today">
+                <div class="img-wrap">
+                    <img src="./assets/Clear.png" alt="weather" />
+                </div>
+                <span class="temperature celsius"><strong>15</strong>°C</span>
+                <span class="weather">Shower</span>
+                <span class="day">Today</span>
+                <span class="dot">•</span>
+                <span class="date">Fri, 5 Jun</span>
+                <sapn class="location"
+                    ><i class="material-icons">location_on</i>
+                </sapn>
             </div>
-          </div>
-        <!-- </div> -->
-  
-        <!-- <div class="two"> -->
-          <div class="card Visibility">
-            <span>Visibility</span>
-            <span class="text"><strong></strong> miles</span>
-          </div>
-    
-          <div class="card Air-Pressure">
-            <span>Air Pressure</span>
-            <span class="text"><strong></strong> mb</span>
-          </div>
-        <!-- </div> -->
-      </div>
-    </div>
-  </body>
+        </div>
+
+        <div class="wrapper">
+            <div class="forecast">
+                <div class="temp">
+                    <input
+                        type="radio"
+                        name="temps"
+                        id="celsius"
+                        onchange="convert(0)"
+                        checked
+                    />
+                    <input
+                        type="radio"
+                        name="temps"
+                        id="fahrenheit"
+                        onchange="convert(1)"
+                    />
+                    <label class="radio cel" for="celsius">°C</label>
+                    <label class="radio fahrenheit" for="fahrenheit">°F</label>
+                </div>
+
+                <article class="card"></article>
+                <article class="card tomorrow">
+                    <span class="data">Tomorrow</span>
+                    <img src="./assets/Showers.png" alt="" />
+                    <span class="high celsius">16°C</span>
+                    <span class="low celsius">11°C</span>
+                </article>
+
+                <article class="card two-days">
+                    <span class="data">Tomorrow</span>
+                    <img src="" alt="" />
+                    <span class="high celsius"></span>
+                    <span class="low celsius"></span>
+                </article>
+
+                <article class="card three-days">
+                    <span class="data">Tomorrow</span>
+                    <img src="" alt="" />
+                    <span class="high celsius"></span>
+                    <span class="low celsius"></span>
+                </article>
+
+                <article class="card four-days">
+                    <span class="data">Tomorrow</span>
+                    <img src="" alt="" />
+                    <span class="high celsius"></span>
+                    <span class="low celsius"></span>
+                </article>
+
+                <article class="card five-days">
+                    <span class="data">Tomorrow</span>
+                    <img src="" alt="" />
+                    <span class="high celsius"></span>
+                    <span class="low celsius"></span>
+                </article>
+            </div>
+
+            <div class="today-details">
+                <span>Today's Highlights</span>
+                <!-- <div class="one"> -->
+                <div class="card wind">
+                    <span>Wind status</span>
+                    <span class="text"><strong></strong>mph</span>
+                    <span class="wind-dir"
+                        ><i class="material-icons">navigation</i></span
+                    >
+                </div>
+
+                <div class="card Humidity">
+                    <span>Humidity</span>
+                    <span class="text"><strong></strong>%</span>
+                    <div class="slider">
+                        <div class="nums">
+                            <span>0</span>
+                            <span>50</span>
+                            <span>100</span>
+                        </div>
+                        <div class="sliders">
+                            <span class="slide"></span>
+                            <span class="fill"></span>
+                        </div>
+                        <span>%</span>
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <!-- <div class="two"> -->
+                <div class="card Visibility">
+                    <span>Visibility</span>
+                    <span class="text"><strong></strong> miles</span>
+                </div>
+
+                <div class="card Air-Pressure">
+                    <span>Air Pressure</span>
+                    <span class="text"><strong></strong> mb</span>
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </body>
 </html>
